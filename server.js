@@ -8,14 +8,13 @@
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
-const baseController = require("./controllers/baseController")
-const pool = require("./database")
-const utilities = require("./utilities")
-const static = require("./routes/static")
-const inventoryRoute = require("./routes/inventoryRoute")
-
 const app = express()
-
+const static = require("./routes/static")
+const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
+const errorRoute = require("./routes/errorRoute")
+const utilities = require("./utilities/")
+// const pool = require("./database")
 
 /* ***********************
 * View Engine and Templates
@@ -24,17 +23,17 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") //not at views root
 
+
 /* ***********************
  * Routes
  *************************/
 app.use(static)
-
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
-
 // Inventory routes
 app.use("/inv", inventoryRoute)
-
+// Error 505 server error route 
+app.use("/error", errorRoute)
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
@@ -47,14 +46,22 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ 
+  if (err.status == 404){ 
+    title = err.status
     message = err.message
+  } else if (err.status == 500) {
+    message = "Oh no! There was a crash. Maybe try a different route?"
+    title = 'Server Error'
   } else { 
-    message = 'Oh no! There was a crash. Maybe try a different route?' 
+    res.render("errors/error", {
+      title: 'Server Error',
+      message: "Sorry, we couldn't find this page, try another one please.",
+      nav
+    })
   }
   res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message: err.message,
+    title,
+    message,
     nav
   })
 })

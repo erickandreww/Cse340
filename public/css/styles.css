@@ -85,6 +85,10 @@ nav ul li {
   list-style-type: none;
 }
 
+nav a {
+  color: var(--color-one);
+}
+
 .hero {
   color: var(--color-two);
   display: grid;
@@ -190,9 +194,75 @@ nav ul li {
   height: 30px;
 }
 
+/* Inventory Grid */
+
+#inv-display {
+  list-style: none;
+  display: block;
+  justify-items: center;
+  align-content: center;
+  
+}
+
+#inv-display li {
+  margin: 25px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 10px;
+  max-width: 250px;
+  /* background-color: var(--color-two); */
+}
+
+#inv-display li img {
+  width: 200px;
+  height: 125px;
+  margin-bottom: 10px;
+  margin: auto;
+}
+
+/* details page */
+
+.vehicle-main {
+  padding: 10px;
+}
+
+.vehicle-div-img {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#vehicle-img {
+  max-width: 350px;
+  height: 250px;
+}
+
+#vehicle-description, #vehicle-miles {
+  padding: 10px;
+}
+
+#vehicle-price, #vehicle-color {
+  background-color: rgb(229, 238, 236);
+  padding: 10px;
+}
+
+
+
+/* Footer */
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
 footer p {
   padding-left: 5px;
   font-size: var(--small-font);
+}
+
+footer a {
+  padding-left: 5px;
 }
 
 @media screen and (min-width: 500px) {
@@ -231,6 +301,44 @@ footer p {
 
   .review-content li {
     height: 45px;
+  }
+
+
+  /* inv display desktop */
+
+  #inv-display {
+    list-style: none;
+      padding: 0;
+      margin: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+  }
+
+  #inv-display li {
+    text-align: center;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 250px;
+  }
+
+
+  /* details page desktop */
+  
+  .vehicle-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .vehicle-div-img {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  .vehicle-details {
+    grid-column: 2;
+    grid-row: 1;
   }
 
 }
