@@ -12,10 +12,12 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const errorRoute = require("./routes/errorRoute")
 const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require('./database/')
+const bodyParser = require("body-parser")
 
 /* ***********************
 * View Engine and Templates
@@ -37,6 +39,8 @@ app.set("layout", "./layouts/layout") //not at views root
   saveUninitialized: true,
   name: 'sessionId',
 }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -53,6 +57,8 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Account routes
+app.use("/account", accountRoute)
 // Error 505 server error route 
 app.use("/error", errorRoute)
 // File Not Found Route - must be last route in list
@@ -105,4 +111,3 @@ const host = process.env.HOST
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`)
 })
-

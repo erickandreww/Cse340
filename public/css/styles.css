@@ -247,7 +247,124 @@ nav a {
   padding: 10px;
 }
 
+/* Login Form */
+form[name="login-account"] {
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--color-three);
+  color: var(--color-base);
+  border: 2px solid var(--color-two);
+  border-radius: 10px;
+}
 
+label {
+  color: var(--color-base);
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[name="l-email"],
+input[name="l-password"] {
+  width: calc(100% - 25px);
+  padding: 5px;
+  border: 1px solid var(--color-three);
+  margin-top: 1.5px;
+  margin-bottom: 10px;
+}
+
+#no-account {
+  text-align: center;
+}
+
+#no-account a {
+  text-decoration: underline;
+}
+
+#submit {
+  display: flex;
+  position: relative;
+  /* position: ; */
+  padding: 5px 10px;
+  background-color: var(--color-two);
+  color: var(--color-one);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#submit:hover {
+  background-color: var(--color-one);
+  color: var(--color-four);
+}
+
+/* Register */
+
+form[name="register"] {
+  width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  margin-top: 25px;
+  background-color: var(--color-one);
+  color: var(--color-base);
+  border: 2px solid var(--color-base);
+}
+
+#register-form fieldset {
+  border: none;
+}
+
+input[name="r-first-name"],
+input[name="r-last-name"],
+input[name="r-email"],
+input[name="r-password"] {
+  width: calc(100% - 25px);
+  padding: 5px;
+  margin-top: 1.5px;
+  margin-bottom: 10px;
+}
+
+.f-name, .l-name , .r-email, .r-password {
+  color: var(--color-base);
+  display: block;
+  margin-bottom: 5px;
+}
+
+#r-submit {
+  display: flex;
+  position: relative;
+  /* position: ; */
+  padding: 5px 10px;
+  background-color: var(--color-two);
+  color: var(--color-one);
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+#r-submit:hover {
+  background-color: var(--color-one);
+  color: var(--color-four);
+}
+
+
+input:required:invalid, input:focus:invalid {
+  background-image: url(/images/invalid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+ }
+  input:required:valid {
+  background-image: url(/images/valid.png);
+  background-position: right top;
+  background-repeat: no-repeat;
+  }
+
+/* Vehicles Management */
+.management li {
+  list-style: none;
+}
+
+.management li a {
+  text-decoration: underline;
+}
 
 /* Footer */
 
