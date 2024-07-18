@@ -6,7 +6,7 @@ const regValidate = require('../utilities/account-validation')
 
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
-router.get("/AccManagement", utilities.handleErrors(accountController.buildAccountManage))
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManage))
 
 // Process the registration data
 router.post(

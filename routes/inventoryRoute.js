@@ -9,7 +9,7 @@ const invValidate = require('../utilities/inventory-validation')
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
 
-router.get("/management", utilities.handleErrors(invController.buildManage));
+router.get("/", utilities.handleErrors(invController.buildManage));
 
 router.get("/newclass", utilities.handleErrors(invController.buildNewClass));
 router.post(
@@ -24,6 +24,9 @@ router.post(
     "/newvehicle", 
     invValidate.newVehicleRules(),
     invValidate.checkNewVehiclesInfo,
-    utilities.handleErrors(invController.registerNewVehicle));
+    utilities.handleErrors(invController.registerNewVehicle)
+);
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 module.exports = router;
