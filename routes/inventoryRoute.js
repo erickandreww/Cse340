@@ -7,7 +7,7 @@ const invValidate = require('../utilities/inventory-validation')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
-router.get("/detail/:invId", utilities.handleErrors(invController.buildByInvId));
+router.get("/detail/:inv_id", utilities.handleErrors(invController.buildByInvId));
 
 router.get("/", utilities.handleErrors(invController.buildManage));
 
@@ -28,5 +28,13 @@ router.post(
 );
 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInv))
+router.post(
+    "/update", 
+    invValidate.newVehicleRules(),
+    invValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory)
+);
 
 module.exports = router;

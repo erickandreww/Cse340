@@ -64,17 +64,17 @@ Util.buildClassificationGrid = async function(data){
 * ************************************ */
  Util.buildVehicleInfo = async function(data) {
   let info
-  if(data.length > 0) {
+  if(data) {
     info = '<div class="vehicle-main">'
-    info += '<div class="vehicle-div-img"><img id="vehicle-img" src="' + data[0].inv_image
-        +'" alt="Image of '+ data[0].inv_make + ' ' + data[0].inv_model 
+    info += '<div class="vehicle-div-img"><img id="vehicle-img" src="' + data.inv_image
+        +'" alt="Image of '+ data.inv_make + ' ' + data.inv_model 
         +' on CSE Motors" /></a></div>'
     info += '<div class="vehicle-details">'
-    info += '<h3 id="vehicle-name">' + data[0].inv_make + ' ' + data[0].inv_model + ' Details</h3>'
-    info += '<p id="vehicle-price"><strong>Price</strong>: $' + data[0].inv_price + '</p>'
-    info += '<p id="vehicle-description"><strong>Description</strong>: ' + data[0].inv_description + '</p>'
-    info += '<p id="vehicle-color"><strong>Color</strong>: ' + data[0].inv_color + '</p>'
-    info += '<p id="vehicle-miles"><strong>Miles</strong>: ' + data[0].inv_miles + '</p>'
+    info += '<h3 id="vehicle-name">' + data.inv_make + ' ' + data.inv_model + ' Details</h3>'
+    info += '<p id="vehicle-price"><strong>Price</strong>: $' + data.inv_price + '</p>'
+    info += '<p id="vehicle-description"><strong>Description</strong>: ' + data.inv_description + '</p>'
+    info += '<p id="vehicle-color"><strong>Color</strong>: ' + data.inv_color + '</p>'
+    info += '<p id="vehicle-miles"><strong>Miles</strong>: ' + data.inv_miles + '</p>'
     info += '</div>'
     info += '</div>'
   } else {
