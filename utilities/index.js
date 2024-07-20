@@ -1,3 +1,4 @@
+const { cookie } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -62,7 +63,7 @@ Util.buildClassificationGrid = async function(data){
 /* **************************************
 * Build the vehicles view HTML
 * ************************************ */
- Util.buildVehicleInfo = async function(data) {
+Util.buildVehicleInfo = async function(data) {
   let info
   if(data) {
     info = '<div class="vehicle-main">'
@@ -81,8 +82,11 @@ Util.buildClassificationGrid = async function(data){
     info += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return info
- }
+}
 
+/* **************************************
+* Build the Classification List view HTML
+* ************************************ */
  Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications()
   let classificationList =
@@ -135,7 +139,33 @@ Util.checkLogin = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
+
+/* ****************************************
+ *  Check Account Type
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+  if (res.locals.accountData.account_type !== 'Client') {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+}
+
+/* ****************************************
+ *  Logout
+ * ************************************ */
+Util.logout = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      res.clearCookie("jwt"),
+      res.redirect("/")
+    )
+  }
+}
 
 /* ****************************************
  * Middleware For Handling Errors

@@ -29,13 +29,13 @@ validate.registationRules = () => {
         .trim()
         .isEmail()
         .normalizeEmail() // refer to validator.js docs
+        .withMessage("A valid email is required.")
         .custom(async (account_email) => {
           const emailExists = await accountModel.checkExistingEmail(account_email)
           if (emailExists){
             throw new Error("Email exists. Please log in or use different email")
           }
-        })
-        .withMessage("A valid email is required."),
+        }),
   
       // password is required and must be strong password
       body("account_password")
@@ -60,6 +60,56 @@ validate.loginRules = () => {
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
       .withMessage("Please, insert a valid email."),
+  ]
+}
+
+validate.updateBasicRules = ()  => {
+  return [
+    // firstname is required and must be string
+    body("account_firstname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage("Invalid First name."), // on error this message is sent.
+
+    // lastname is required and must be string
+    body("account_lastname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 2 })
+      .withMessage("Invalid Last name."), // on error this message is sent.
+
+    // valid email is required and cannot already exist in the DB
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("Invalid email.")
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(account_email)
+        if (emailExists){
+          throw new Error("Email already exists.")
+        }
+      }),
+  ]
+}
+
+validate.updatePasswordRules = ()  => {
+  return [
+    // password is required and must be strong password
+    body("account_password")
+    .trim()
+    .notEmpty()
+    .isStrongPassword({
+      minLength: 12,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+    .withMessage("Password does not meet requirements."),
   ]
 }
 
@@ -96,6 +146,35 @@ validate.checkLoginData = async (req, res, next) => {
       title: "Login",
       nav,
       account_email,
+    })
+    return
+  }
+  next()
+}
+
+validate.checkUpdateData = async (req, res, next) => {
+  const { account_id } = req.body
+  const data = await accountModel.getAccountById(account_id)
+  let errors = []
+  errors = validationResult(req)
+  // errors.array().forEach(error => {
+  //   // console.log(error)
+  //   if (error.value === data.account_email) {
+  //     error.value = "potato"
+  //     console.log(error)
+  //     console.log("work?")
+  //   }
+  // })
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/edit-account", {
+      errors,
+      title: "Edit Account",
+      nav,
+      account_firstname: data.account_firstname,
+      account_lastname: data.account_lastname,
+      account_email: data.account_email,
+      account_id: data.account_id,
     })
     return
   }

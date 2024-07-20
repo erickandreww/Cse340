@@ -9,9 +9,9 @@ const invValidate = require('../utilities/inventory-validation')
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 router.get("/detail/:inv_id", utilities.handleErrors(invController.buildByInvId));
 
-router.get("/", utilities.handleErrors(invController.buildManage));
+router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildManage));
 
-router.get("/newclass", utilities.handleErrors(invController.buildNewClass));
+router.get("/newclass", utilities.checkAccountType, utilities.handleErrors(invController.buildNewClass));
 router.post(
     "/newclass", 
     invValidate.classificationRules(),
@@ -19,7 +19,7 @@ router.post(
     utilities.handleErrors(invController.registerClass)
 );
 
-router.get("/newvehicle", utilities.handleErrors(invController.buildNewVehicle));
+router.get("/newvehicle", utilities.checkAccountType, utilities.handleErrors(invController.buildNewVehicle));
 router.post(
     "/newvehicle", 
     invValidate.newVehicleRules(),
@@ -27,9 +27,9 @@ router.post(
     utilities.handleErrors(invController.registerNewVehicle)
 );
 
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get("/getInventory/:classification_id", utilities.checkAccountType, utilities.handleErrors(invController.getInventoryJSON))
 
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInv))
+router.get("/edit/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.buildEditInv))
 router.post(
     "/update", 
     invValidate.newVehicleRules(),
@@ -37,7 +37,7 @@ router.post(
     utilities.handleErrors(invController.updateInventory)
 );
 
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInv))
+router.get("/delete/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.buildDeleteInv))
 router.post("/delete", utilities.handleErrors(invController.deleteItem))
 
 module.exports = router;
