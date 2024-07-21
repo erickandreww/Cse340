@@ -145,8 +145,13 @@ Util.checkLogin = (req, res, next) => {
  *  Check Account Type
  * ************************************ */
 Util.checkAccountType = (req, res, next) => {
-  if (res.locals.accountData.account_type !== 'Client') {
-    next()
+  if (res.locals.loggedin) {
+    if (res.locals.accountData.account_type !== 'Client') {
+      next()
+    } else {
+      req.flash("notice", "Please log in.")
+      return res.redirect("/account/login")
+    }
   } else {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
