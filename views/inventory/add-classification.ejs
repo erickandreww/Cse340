@@ -11,7 +11,7 @@
     <%  }}) %>
    </ul>
 <% } %>
-<form name="add-class" id="addClass-form" action="/inv/newclass" method="post">
+<form name="add-class" class="inv-management" id="addClass-form" action="/inv/newclass" method="post">
     <fieldset>
         <label for="name">Classification Name<input type="text" name="classification_name" 
             pattern="[^' '\W]+" required value="<%= locals.classification_name %>"></label>

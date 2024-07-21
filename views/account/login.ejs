@@ -4,7 +4,7 @@
     res.redirect('/')
 } %>
 <%- messages() %>
-<form id="loginForm" name="login-account" action="/account/login" method="post">
+<form id="loginForm" class="inv-management" name="login-account" action="/account/login" method="post">
     <fieldset>
         <label for="email">Email:<input type="email" name="account_email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" 
             required value="<%= locals.account_email %>"></label>

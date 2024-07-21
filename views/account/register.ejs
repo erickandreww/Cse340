@@ -1,6 +1,6 @@
-<form name="register" id="register-form" action="/account/register" method="post">
+<form name="register" id="register-form" class="inv-management" action="/account/register" method="post">
     <% if (title) { %>
-        <h1><%= title %></h1>
+        <h1 id="register-title"><%= title %></h1>
         <% } else {
         res.redirect('/')
     } %>

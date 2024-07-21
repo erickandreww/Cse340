@@ -3,7 +3,7 @@
     <% } else {
     res.redirect('/')
 } %>
-<form name="DeleteVehicle" id="EditVehicle-form" action="/inv/delete" method="post">
+<form name="DeleteVehicle" class="inv-management" id="EditVehicle-form" action="/inv/delete" method="post">
     <fieldset>
         <label for="invMake">Make<input type="text" readonly 
             <% if(locals.inv_make) { %> value="<%= locals.inv_make %>" <% } %>></label>

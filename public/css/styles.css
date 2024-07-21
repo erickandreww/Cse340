@@ -194,6 +194,7 @@ nav a {
   height: 30px;
 }
 
+
 /* Inventory Grid */
 
 #inv-display {
@@ -221,6 +222,7 @@ nav a {
   margin: auto;
 }
 
+
 /* details page */
 
 .vehicle-main {
@@ -247,10 +249,40 @@ nav a {
   padding: 10px;
 }
 
+/* Vehicles Management */
+.management li {
+  list-style: none;
+}
+
+.management li a {
+  text-decoration: underline;
+}
+
+
+/* Account Management */
+#account-management {
+  padding-left: 5px;
+}
+
+#account-management p, #account-management a {
+  padding-left: 5px;
+}
+
+.ac-management-inv {
+  padding-left: 5px;
+}
+
+.ac-management-inv a {
+  padding-left: 5px;
+}
+
+/* FORMS */
+
 /* Login Form */
-form[name="login-account"] {
-  width: 60%;
+.inv-management {
+  width: 50%;
   margin: 0 auto;
+  margin-top: 25px;
   padding: 20px;
   background-color: var(--color-three);
   color: var(--color-base);
@@ -258,14 +290,17 @@ form[name="login-account"] {
   border-radius: 10px;
 }
 
-label {
+.inv-management fieldset {
+  padding-top: 10px;
+}
+
+.inv-management label {
   color: var(--color-base);
   display: block;
   margin-bottom: 5px;
 }
 
-input[name="l-email"],
-input[name="l-password"] {
+.inv-management input, .inv-management select {
   width: calc(100% - 25px);
   padding: 5px;
   border: 1px solid var(--color-three);
@@ -297,73 +332,65 @@ input[name="l-password"] {
   color: var(--color-four);
 }
 
-/* Register */
+/* register */
 
-form[name="register"] {
-  width: 60%;
-  margin: 0 auto;
+#register-title {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+/* Edit account Form */
+
+#editAccountBasic-form form, #editAccountPassword-form form {
+  margin-top: 20px;
   padding: 20px;
-  margin-top: 25px;
-  background-color: var(--color-one);
   color: var(--color-base);
-  border: 2px solid var(--color-base);
 }
 
-#register-form fieldset {
+#editAccountBasic-form fieldset, #editAccountPassword-form fieldset {
   border: none;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
-input[name="r-first-name"],
-input[name="r-last-name"],
-input[name="r-email"],
-input[name="r-password"] {
-  width: calc(100% - 25px);
-  padding: 5px;
-  margin-top: 1.5px;
-  margin-bottom: 10px;
-}
-
-.f-name, .l-name , .r-email, .r-password {
+#editAccountBasic-form label, #editAccountPassword-form label {
   color: var(--color-base);
   display: block;
   margin-bottom: 5px;
 }
 
-#r-submit {
-  display: flex;
-  position: relative;
-  /* position: ; */
-  padding: 5px 10px;
-  background-color: var(--color-two);
-  color: var(--color-one);
-  font-weight: bold;
-  border-radius: 5px;
+#editAccountBasic-form input, #editAccountPassword-form input {
+  width: calc(100% - 25px);
+  padding: 5px;
+  border: 1px solid var(--color-three);
+  margin-top: 1.5px;
+  margin-bottom: 10px;
 }
 
-#r-submit:hover {
-  background-color: var(--color-one);
-  color: var(--color-four);
+.edit-submit {
+  padding: 50px;
 }
 
-
-input:required:invalid, input:focus:invalid {
-  background-image: url(/images/invalid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
- }
-  input:required:valid {
-  background-image: url(/images/valid.png);
-  background-position: right top;
-  background-repeat: no-repeat;
-  }
-
-/* Vehicles Management */
-.management li {
-  list-style: none;
+#manage-inventory {
+  padding-left: 5px;
 }
 
-.management li a {
-  text-decoration: underline;
+#manage-inventory p, #manage-inventory select {
+  padding-left: 5px;
+}
+
+#manage-inventory select {
+  width: 25%;
+  padding: 2.5px;
+  border: 1px solid var(--color-three);
+  margin-top: 1.5px;
+  margin-bottom: 10px;
+}
+
+#inventoryDisplay {
+  padding-top: 10px;
 }
 
 /* Footer */

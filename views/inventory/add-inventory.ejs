@@ -11,7 +11,7 @@
   <%  }}) %>
    </ul>
 <% } %>
-<form name="addNewVehicle" id="addNewVehicle-form" action="/inv/newvehicle" method="post">
+<form name="addNewVehicle" class="inv-management" id="addNewVehicle-form" action="/inv/newvehicle" method="post">
     <fieldset>
         <label for="">Classification <%- classList %></label>
         <label for="">Make<input type="text" name="inv_make" placeholder="Min of 3 characters" minlength="3" required value="<%= locals.inv_make %>"></label>
