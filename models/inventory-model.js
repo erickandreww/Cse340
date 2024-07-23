@@ -122,7 +122,17 @@ async function deleteInventoryItem(inv_id) {
     }
 }
 
+async function registerReview(inv_id) {
+  try {
+    const sql = "INSERT INTO public.review (review_text, inv_id, account_id) VALUES ($1, $2, $3) RETURNING *"
+    const data = await pool.query(sql, [review_text, inv_id, account_id])
+      return data
+    } catch (error) {
+      new Error("Review Error")
+    }
+}
+
 
 module.exports = {getClassifications, getInventoryByClassificationId, getVehicleByInventoryId, 
   registerClass, registerNewVehicle, checkExistingClassification, updateInventory, 
-  deleteInventoryItem, getReviews};
+  deleteInventoryItem, getReviews, registerReview};

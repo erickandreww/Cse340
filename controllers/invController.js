@@ -28,17 +28,8 @@ invCont.buildByInvId = async function (req, res, next) {
   const reviews = await invModel.getReviews(inv_id)
   let nav = await utilities.getNav()
   const reviewInfo = await utilities.buildReviewInfo(reviews)
-  console.log(reviewInfo)
   const vehicleName = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
   // pass this for utilities index
-  if (reviewInfo) {
-    res.render("./inventory/vehicles", {
-      title: vehicleName, 
-      nav, 
-      vehicleInfo,
-      reviewInfo,
-    })
-  } else {
     res.render("./inventory/vehicles", {
       title: vehicleName, 
       nav, 
@@ -46,7 +37,6 @@ invCont.buildByInvId = async function (req, res, next) {
       reviewInfo,
     })
   }
-}
 /* ***************************
  *  Build management view
  * ************************** */
@@ -248,6 +238,25 @@ if (deleteResult) {
   } else {
     req.flash("notice", "Sorry, the delete failed.")
     res.redirect("inv/delete/inv_id")
+  }
+}
+
+invCont.addReview = async function (req, res) {
+  console.log("test")
+  const { review_text } = req.body
+  const inv_id = parseInt(req.body.inv_id)
+  const account_id = locals.accountData.account_id
+  console.log("working?")
+  const reviewResult = await invModel.registerReview(review_text, inv_id, account_id)
+  console.log(reviewResult)
+  if (reviewResult) {
+    req.flash("notice", `The review was successfull.`)
+    console.log("yes?")
+    res.redirect("/detail/")
+  } else {
+    req.flash("notice", `Sorry, the review failed.`)
+    console.log("no?")
+    res.redirect("/detail/")
   }
 }
 
