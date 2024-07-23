@@ -25,13 +25,27 @@ invCont.buildByInvId = async function (req, res, next) {
   const inv_id = req.params.inv_id
   const data = await invModel.getVehicleByInventoryId(inv_id)
   const vehicleInfo = await utilities.buildVehicleInfo(data)
+  const reviews = await invModel.getReviews(inv_id)
   let nav = await utilities.getNav()
+  const reviewInfo = await utilities.buildReviewInfo(reviews)
+  console.log(reviewInfo)
   const vehicleName = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
-  res.render("./inventory/vehicles", {
-    title: vehicleName, 
-    nav, 
-    vehicleInfo,
-  })
+  // pass this for utilities index
+  if (reviewInfo) {
+    res.render("./inventory/vehicles", {
+      title: vehicleName, 
+      nav, 
+      vehicleInfo,
+      reviewInfo,
+    })
+  } else {
+    res.render("./inventory/vehicles", {
+      title: vehicleName, 
+      nav, 
+      vehicleInfo,
+      reviewInfo,
+    })
+  }
 }
 /* ***************************
  *  Build management view
@@ -70,7 +84,7 @@ invCont.buildNewVehicle = async function (req, res) {
 invCont.registerClass = async function (req, res) {
   let nav = await utilities.getNav();
   const {classification_name} = req.body;
-
+  const classificationSelect = await utilities.buildClassificationList()
   const classResult = await invModel.registerClass(classification_name)
   
   if (classResult) {
@@ -81,12 +95,14 @@ invCont.registerClass = async function (req, res) {
     res.status(201).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect,
     })
   } else {
     req.flash("notice", "Sorry, the classification register failed.")
-    res.status(501).render("inventory/add-classification", {
+    res.status(501).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect, 
     })
   }
 }
@@ -99,6 +115,8 @@ invCont.registerNewVehicle = async function (req, res) {
   const vehicleResult = await invModel.registerNewVehicle(inv_make, inv_model, inv_year, inv_description, inv_image, 
     inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
   
+  const classificationSelect = await utilities.buildClassificationList()
+  
   if (vehicleResult) {
     req.flash(
       "notice",
@@ -107,12 +125,14 @@ invCont.registerNewVehicle = async function (req, res) {
     res.status(201).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect, 
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("inventory/add-inventory", {
+    res.status(501).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect,
     })
   }
 }

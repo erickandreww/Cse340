@@ -1,5 +1,6 @@
 const { cookie } = require("express-validator")
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -82,6 +83,32 @@ Util.buildVehicleInfo = async function(data) {
     info += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return info
+}
+
+Util.buildReviewInfo = async function(reviews) {
+  let view = "";
+  for (let index = 0; index < reviews.length; index++) {
+    const account = await accountModel.getAccountById(reviews[index].account_id)
+    const date = await Util.formatDate(reviews[index].review_date)
+    view += '<div>';
+    view += '<p><b>' + account.account_firstname + "</b> wrote on " + date + '</p>';
+    view += '<p>' + reviews[index].review_text + '</p>';
+    view += '</div>';
+  }
+  return view
+}
+
+Util.formatDate = async function(dateString) {
+  const date = new Date(dateString);
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const day = date.getDate();
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month} ${day}, ${year}`;
 }
 
 /* **************************************
