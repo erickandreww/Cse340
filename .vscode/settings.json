@@ -9,7 +9,7 @@
       "previewLimit": 50,
       "server": "localhost",
       "driver": "PostgreSQL",
-      "name": "Render",
+      "name": "em340cse",
       "connectString": "postgresql://em340cse:OzSMIyJyA0nAE8YS105sIYy5m08AxC5o@dpg-cqfehtdds78s73bt2a80-a.frankfurt-postgres.render.com/em340cse"
     }
   ]
