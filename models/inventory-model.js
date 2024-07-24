@@ -42,21 +42,6 @@ async function getVehicleByInventoryId(inv_id) {
   }
 }
 
-/* ***************************
- *  Get reviews by inv_id
- * ************************** */
-async function getReviews(inv_id) {
-  try {
-    const data = await pool.query(
-      `SELECT * FROM public.review WHERE inv_id = $1`,
-      [inv_id]
-    ) 
-    return data.rows
-  } catch (error) {
-    console.error("getReviews error " + error)
-  }
-}
-
 async function registerClass(classification_name) {
   try {
     const sql = "INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *"
@@ -122,17 +107,7 @@ async function deleteInventoryItem(inv_id) {
     }
 }
 
-async function registerReview(inv_id) {
-  try {
-    const sql = "INSERT INTO public.review (review_text, inv_id, account_id) VALUES ($1, $2, $3) RETURNING *"
-    const data = await pool.query(sql, [review_text, inv_id, account_id])
-      return data
-    } catch (error) {
-      new Error("Review Error")
-    }
-}
-
 
 module.exports = {getClassifications, getInventoryByClassificationId, getVehicleByInventoryId, 
   registerClass, registerNewVehicle, checkExistingClassification, updateInventory, 
-  deleteInventoryItem, getReviews, registerReview};
+  deleteInventoryItem};

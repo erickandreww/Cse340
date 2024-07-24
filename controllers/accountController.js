@@ -31,10 +31,13 @@ async function buildRegister(req, res, next) {
 
 async function buildAccountManage(req, res, next) {
   let nav = await utilities.getNav()
+  const account_id = res.locals.accountData.account_id
+  const myReviews = await utilities.buildAccountReviewInfo(account_id)
   res.render("account/accountManagement", {
     title: "Account Management",
     nav,
     errors: null,
+    myReviews,
   })
 }
 

@@ -9,7 +9,6 @@ const invValidate = require('../utilities/inventory-validation')
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
 router.get("/detail/:inv_id", utilities.handleErrors(invController.buildByInvId));
-router.post("/detail/review", utilities.handleErrors(invController.addReview))
 
 router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildManage));
 

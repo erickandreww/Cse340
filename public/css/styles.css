@@ -249,17 +249,46 @@ nav a {
   padding: 10px;
 }
 
-#vehicles-reviews {
+#vehicles-reviews h3 {
   padding-left: 5px;
 }
 
-#vehicles-reviews p {
+#div-vehicleforms p {
   padding-left: 5px;
 }
 
 #first-review {
   background-color: yellow;
   width: 30%;
+}
+
+#costumer-reviews li, #costumer-reviews p {
+  padding: 0;
+  margin: 0;
+}
+
+#costumer-reviews li {
+  padding-bottom: 15px;
+}
+
+#costumer-reviews hr {
+  position: relative;
+  left: 0%;
+  width: 80%;
+  padding: 0;
+  margin: 0;
+  height: 3px;
+  color: #000;
+  background-color: #000;
+}
+
+#reviews-form {
+  width:auto
+}
+
+
+#div-forms {
+  padding-left: 5px;
 }
 
 #reviews-form  label {
@@ -307,7 +336,7 @@ nav a {
 
 /* Login Form */
 .inv-management {
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
   margin-top: 25px;
   padding: 20px;
@@ -418,6 +447,20 @@ nav a {
   padding-top: 10px;
 }
 
+/* Account Management */
+#account-management-reviews h2 {
+  padding-left: 5px;
+}
+
+#reviewList p, #reviewList a {
+  margin: 0;
+  padding: 0;
+}
+
+#reviewList li {
+  padding-bottom: 10px;
+}
+
 /* Footer */
 
 footer {
@@ -508,6 +551,24 @@ footer a {
   .vehicle-details {
     grid-column: 2;
     grid-row: 1;
+  }
+
+  #reviews-form {
+    padding-left: 5px;
+    width: 99%;
+  }
+
+  #reviews-form textarea {
+    width: 80%;
+  }
+  
+  #reviewList li {
+    display: flex;
+    justify-content: left;
+  }
+
+  .inv-management {
+    width: 50%;
   }
 
 }

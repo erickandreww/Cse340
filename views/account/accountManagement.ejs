@@ -3,6 +3,7 @@
     <% } else {
     res.redirect('/')
 } %>
+<%- messages() %>
 
 <div class="management-body">
 <div id="account-management">
@@ -11,8 +12,13 @@
     <a href="./update/<%= locals.accountData.account_id %>">Edit Account Information</a>
 </div>
 
-<div>
+<div id="account-management-reviews">
     <h2>My Reviews</h2>
+    <% if (!myReviews) { %>
+        <p id="no-reviews">No reviews found</p>
+    <% } else { %>
+        <%- myReviews  %>
+    <% } %>
 </div>
 
 <% if (accountData.account_type !== 'Client') { %>

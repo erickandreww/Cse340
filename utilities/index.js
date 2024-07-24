@@ -1,6 +1,7 @@
 const { cookie } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const accountModel = require("../models/account-model")
+const reviewModel = require("../models/review-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
@@ -85,17 +86,36 @@ Util.buildVehicleInfo = async function(data) {
   return info
 }
 
-Util.buildReviewInfo = async function(reviews) {
-  let view = "";
+Util.buildInvReviewInfo = async function(reviews) {
+  let view = '<ul id="costumer-reviews">';
   for (let index = 0; index < reviews.length; index++) {
     const account = await accountModel.getAccountById(reviews[index].account_id)
     const date = await Util.formatDate(reviews[index].review_date)
-    view += '<div>';
+    view += '<li>';
     view += '<p><b>' + account.account_firstname + "</b> wrote on " + date + '</p>';
-    view += '<p>' + reviews[index].review_text + '</p>';
-    view += '</div>';
+    view += '<hr><p>' + reviews[index].review_text + '</p>';
+    view += '</li>';
   }
+  view += '</ul>';
   return view
+}
+
+Util.buildAccountReviewInfo = async function(account_id) {
+  let data = await reviewModel.getReviewsByAccountId(account_id)
+  let reviewsList = '<ol id="reviewList">'
+  for (let index = 0; index < data.length; index++) {
+    const vehicle = await invModel.getVehicleByInventoryId(data[index].inv_id)
+    const date = await Util.formatDate(data[index].review_date)
+
+    reviewsList += '<li name="review_text">'
+    reviewsList += '<p> Reviewed the <b>' + vehicle.inv_year + ' '
+    reviewsList += vehicle.inv_make + ' ' + vehicle.inv_model + '</b> on ' + date + '</p>'
+    reviewsList += `<a id="first-a" href='/review/editReview/${data[index].review_id}' title='Click to edit'>| Edit </a>`
+    reviewsList += `<a href='/review/deleteReview/${data[index].review_id}' title='Click to delete'>| Delete</a>`
+    reviewsList += "</li>"
+  }
+  reviewsList += "</ol>"
+  return reviewsList
 }
 
 Util.formatDate = async function(dateString) {

@@ -1,5 +1,6 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const reviewModel = require("../models/review-model")
 
 const invCont = {}
 
@@ -25,9 +26,11 @@ invCont.buildByInvId = async function (req, res, next) {
   const inv_id = req.params.inv_id
   const data = await invModel.getVehicleByInventoryId(inv_id)
   const vehicleInfo = await utilities.buildVehicleInfo(data)
-  const reviews = await invModel.getReviews(inv_id)
+
+  const reviews = await reviewModel.getReviewsByInvId(inv_id)
+  const reviewInfo = await utilities.buildInvReviewInfo(reviews)
+
   let nav = await utilities.getNav()
-  const reviewInfo = await utilities.buildReviewInfo(reviews)
   const vehicleName = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
   // pass this for utilities index
     res.render("./inventory/vehicles", {
@@ -35,6 +38,7 @@ invCont.buildByInvId = async function (req, res, next) {
       nav, 
       vehicleInfo,
       reviewInfo,
+      inv_id,
     })
   }
 /* ***************************
@@ -227,7 +231,6 @@ invCont.buildDeleteInv = async (req, res, next) => {
 }
 
 invCont.deleteItem = async function (req, res) {
-  let nav = await utilities.getNav();
   const inv_id = parseInt(req.body.inv_id)
  
   const deleteResult = await invModel.deleteInventoryItem(inv_id)
@@ -236,29 +239,9 @@ if (deleteResult) {
     req.flash("notice", `The delection was successfull.`)
     res.redirect("/inv/")
   } else {
-    req.flash("notice", "Sorry, the delete failed.")
-    res.redirect("inv/delete/inv_id")
+    req.flash("notice", "Sorry, the deletion failed.")
+    res.redirect("inv/")
   }
 }
-
-invCont.addReview = async function (req, res) {
-  console.log("test")
-  const { review_text } = req.body
-  const inv_id = parseInt(req.body.inv_id)
-  const account_id = locals.accountData.account_id
-  console.log("working?")
-  const reviewResult = await invModel.registerReview(review_text, inv_id, account_id)
-  console.log(reviewResult)
-  if (reviewResult) {
-    req.flash("notice", `The review was successfull.`)
-    console.log("yes?")
-    res.redirect("/detail/")
-  } else {
-    req.flash("notice", `Sorry, the review failed.`)
-    console.log("no?")
-    res.redirect("/detail/")
-  }
-}
-
 
 module.exports = invCont
