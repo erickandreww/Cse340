@@ -157,12 +157,6 @@ validate.checkUpdateData = async (req, res, next) => {
   const data = await accountModel.getAccountById(account_id)
   let errors = []
   errors = validationResult(req)
-  errors.array().forEach(error => {
-    if (error.value === data.account_email) {
-       console.log(error)
-       console.log("work?")
-     }
-  })
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
     res.render("account/edit-account", {
