@@ -11,28 +11,34 @@
   <%  }}) %>
    </ul>
 <% } %>
-<form name="editAccountBasic" id="editAccountBasic-form" action="/account/updateBasic" method="post">
-    <fieldset>
-        <label for="name">First name<input type="text" name="account_firstname" id="accountFirstname" 
-            required value="<%= locals.account_firstname %>"></label>
-        <label for="name">Last name<input type="text" name="account_lastname" 
-            required value="<%= locals.account_lastname %>"></label>
-        <label for="email">Email address<input type="email" name="account_email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" 
-            required value="<%= locals.account_email %>"></label>
-        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %>>
 
-        <input id="submit" type="submit" value="Update">
-    </fieldset>
-</form>
+<div id="e-acc-form">
+    <h2>Edit Info</h2>
+    <form name="editAccountBasic" id="editAccountBasic-form" action="/account/updateBasic" method="post">
+        <fieldset>
+            <label for="name">First name<input type="text" name="account_firstname" id="accountFirstname" 
+                required value="<%= locals.account_firstname %>"></label>
+            <label for="name">Last name<input type="text" name="account_lastname" 
+                required value="<%= locals.account_lastname %>"></label>
+            <label for="email">Email address<input type="email" name="account_email" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" 
+                required value="<%= locals.account_email %>"></label>
+            <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %>>
 
-<h2>Update Password</h2>
-<p></p>
-<form name="editAccountPassword" id="editAccountPassword-form" action="/account/updatePassword" method="post">
-    <fieldset>
-        <label for="password">Password:<input type="password" name="account_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}" 
-            required></label>
-        <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %>>
+            <input id="submit" class="accEdit-sub" type="submit" value="Update">
+        </fieldset>
+    </form>
+</div>
 
-        <input id="submit" type="submit" value="Change Password">
-    </fieldset>
-</form>
+<div id="e-pass-form">
+    <h2>Update Password</h2>
+    <p></p>
+    <form name="editAccountPassword" id="editAccountPassword-form" action="/account/updatePassword" method="post">
+        <fieldset>
+            <label for="password">Password:<input type="password" name="account_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,}" 
+                required></label>
+            <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%= locals.account_id %>" <% } %>>
+
+            <input id="submit" class="accEdit-sub" type="submit" value="Change Password">
+        </fieldset>
+    </form>
+</div>

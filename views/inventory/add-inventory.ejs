@@ -16,7 +16,7 @@
         <label for="">Classification <%- classList %></label>
         <label for="">Make<input type="text" name="inv_make" placeholder="Min of 3 characters" minlength="3" required value="<%= locals.inv_make %>"></label>
         <label for="">Model<input type="text" name="inv_model" placeholder="Min of 3 characters" minlength="3" required value="<%= locals.inv_model %>"></label>
-        <label for="">Description<input type="text" name="inv_description" required value="<%= locals.inv_description %>"></label>
+        <labetel for="">Description<textarea type="text" name="inv_description" rows="3" required value="<%= locals.inv_description %>"></textarea></label>
         <label for="">Image Path<input type="text" name="inv_image" required value="/images/vehicles/no-image.png"></label>
         <label for="">Thumbnail Path<input type="text" name="inv_thumbnail" required value="/images/vehicles/no-image.png"></label>
         <label for="">Price<input type="number" name="inv_price" placeholder="decimal or integer" pattern ="[0-9]" required value="<%= locals.inv_price %>"></label>
